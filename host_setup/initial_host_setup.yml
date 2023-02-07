@@ -20,6 +20,7 @@
         pkg:
           - aptitude
           - curl
+          - net-tools
           - vim
           - git
         state: latest

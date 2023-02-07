@@ -20,7 +20,7 @@ Step-by-step guide to prepare, install Docker engine and run DVWM containers on 
 
 On Ansible management node, clone git repository:
 
-git clone [git repo]
+git clone https://github.com/kb3ybe/ansible-docker.git
 
 1. cd host_setup
 2. Copy contents of hosts file into /etc/ansible/hosts if desired.

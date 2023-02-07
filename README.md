@@ -11,10 +11,10 @@ There are also scripts to install Ansible on an Ansible management node.
 
 Here are descriptions for each directory:
 
-ansible_setup - location of Ansible install scripts to get Ansible setup on new Ansible management node
-docker - collection of Ansible playbooks to install Docker engine and manage DVWM containers on hosts
-host_setup - Ansible playbook which sets up vanilla Ubuntu hosts to get them "Ansible friendly"
-manage_hosts - Playbooks to enable/disable password auth for SSHD on each host (not really needed)
+ - ansible_setup - location of Ansible install scripts to get Ansible setup on new Ansible management node
+ - docker - collection of Ansible playbooks to install Docker engine and manage DVWM containers on hosts
+ - host_setup - Ansible playbook which sets up vanilla Ubuntu hosts to get them "Ansible friendly"
+ - manage_hosts - Playbooks to enable/disable password auth for SSHD on each host (not really needed)
 
 Step-by-step guide to prepare, install Docker engine and run DVWM containers on brand-new, vanilla Ubutnu hosts:
 

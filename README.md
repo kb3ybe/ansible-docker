@@ -22,7 +22,7 @@ On Ansible management node, clone git repository:
 
 git clone https://github.com/kb3ybe/ansible-docker.git
 
-1. cd host_setup
+1. cd ansible-docker/host_setup
 2. Copy contents of hosts file into /etc/ansible/hosts if desired.
 3. Edit initial_host_setup.yml and specify admin_username as the user created during Ubuntu installation.
 4. ansible-playbook ./initial_host_setup.yml -k -K

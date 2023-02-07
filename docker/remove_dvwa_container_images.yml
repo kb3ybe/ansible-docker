@@ -1,0 +1,14 @@
+# Removes DVWA container image from Docker host
+
+---
+
+- hosts: all
+  become: true
+  vars:
+    container_image: vulnerables/web-dvwa
+
+  tasks:
+    - name: Remove DVWA docker image from host
+      community.docker.docker_image:
+        name: "{{ container_image }}"
+        state: absent

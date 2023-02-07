@@ -1,0 +1,47 @@
+---
+
+- hosts: all
+  become: true
+  vars:
+
+# This is the user that was created during Ubuntu installation.
+    
+    admin_username: rps
+
+  tasks:
+    - name: Apt update and upgrade
+      apt:
+        update_cache: true
+        upgrade: yes
+        cache_valid_time: 3600
+
+    - name: Install aptitude, curl, git, vim
+      apt:
+        pkg:
+          - aptitude
+          - curl
+          - vim
+          - git
+        state: latest
+
+    - name: Setup admin user for NOPASSWD on sudo
+      ansible.builtin.lineinfile:
+        path: '/etc/sudoers.d/{{ admin_username }}'
+        line: '{{ admin_username }}		ALL = NOPASSWD: ALL'
+        create: yes
+
+    - name: Set up authorized keys
+      ansible.posix.authorized_key:
+        user: "{{ admin_username }}"
+        state: present
+        key: "{{ lookup('file', '/home/{{ admin_username }}/.ssh/id_rsa.pub') }}"
+
+    - name: Remove password authenticaion
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        state: present
+        regexp: '^#PasswordAuthentication'
+        line: 'PasswordAuthentication no'
+
+    - name: Reboot system
+      ansible.builtin.reboot:

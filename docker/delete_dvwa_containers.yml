@@ -1,0 +1,18 @@
+# Deletes DVWA containers completely from Docker hosts
+# container_count is the number of containers initially deployed
+
+---
+
+- hosts: all
+  become: true
+  vars:
+    container_count: 4
+    container_name: dvwa
+    container_image: vulnerables/web-dvwa
+
+  tasks:
+    - name: Delete DVWA containers from host
+      community.docker.docker_container:
+        name: "{{ container_name }}{{ item }}"
+        state: absent
+      with_sequence: count={{ container_count }}

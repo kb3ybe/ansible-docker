@@ -1,0 +1,30 @@
+# This playbook creates DVWA containers and either starts them or restarts if running.
+# container_count variable controls how many containers to be created and run on the hosts.
+# container_ports are the external ports mapped to the containers.  
+# The correct value should be [starting port]+[number of containers-1].
+# For example, if you want the external ports to start at 8080 with 4 containers running, the container_ports variable should be "8080-8083" or 8080-(8080+4-1).
+
+---
+
+- hosts: all
+  become: true
+  vars:
+    container_count: 4
+    container_ports: "8080-8083"
+    container_name: dvwa
+    container_image: vulnerables/web-dvwa
+
+  tasks:
+    - name: Pull DVWA docker image from DockerHub
+      community.docker.docker_image:
+        name: "{{ container_image }}"
+        source: pull
+
+    - name: Create and start DVWA docker containers on hosts
+      community.docker.docker_container:
+        name: "{{ container_name }}{{ item }}"
+        image: "{{ container_image }}"
+        ports:
+          - "{{ container_ports }}:80"
+        restart: true
+      with_sequence: count={{ container_count }}

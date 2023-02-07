@@ -1,0 +1,18 @@
+# Stops running DVWA containers running on Docker hosts.
+# container_count is the number of containers initially deployed.
+
+---
+
+- hosts: all
+  become: true
+  vars:
+    container_count: 4
+    container_name: dvwa
+    container_image: vulnerables/web-dvwa
+
+  tasks:
+    - name: Stop DVWA docker containers on hosts
+      community.docker.docker_container:
+        name: "{{ container_name }}{{ item }}"
+        state: stopped
+      with_sequence: count={{ container_count }}
